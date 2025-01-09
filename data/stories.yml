@@ -1,0 +1,130 @@
+version: "3.1"
+
+stories:
+  - story: track my order
+    steps:
+      - intent: track_my_order
+      - action: track_order_form
+      - active_loop: track_order_form
+      - slot_was_set:
+          - order_number: "1NLJRDREY"
+      - active_loop: null
+      - action: action_order_status
+      - action: action_deactivate_form
+      - slot_was_set:
+          - order_number: null
+      - action: utter_ask_more_help
+
+  - story: track my flight status
+    steps:
+      - intent: track_flight_status
+      - action: track_flight_form
+      - active_loop: track_flight_form
+      - slot_was_set:
+          - pnr: "ABC123"  # Placeholder for user's input
+      - active_loop: null
+      - action: action_flight_status
+      - action: action_deactivate_form
+      - slot_was_set:
+          - pnr: null
+      - action: utter_ask_more_help
+
+  - story: order status
+    steps:
+      - intent: orders_enquiry
+      - action: utter_order_flow
+
+  - story: airlines
+    steps:
+      - intent: airlines_enquiry
+      - action: utter_flight_flow
+
+  - story: services
+    steps:
+      - intent: daily_services
+      - action: utter_services_flow
+
+  - story: review a product
+    steps:
+      - intent: review_product
+      - action: review_form
+      - active_loop: review_form
+      - slot_was_set:
+          - order_item_reference: "ORD1707242885"
+      - slot_was_set:
+          - rating: "5"
+      - slot_was_set:
+          - review_comment: "Great product!"
+      - active_loop: null
+      - action: action_submit_review
+      - action: utter_ask_more_help
+
+  - story: User needs more help
+    steps:
+      - intent: greet
+      - action: action_ask_name
+      - intent: inform
+      - action: action_save_name
+      - action: utter_ask_option
+
+  - story: Provide feedback after help
+    steps:
+      - intent: deny
+      - action: utter_feedback
+      - intent: feedback
+      - action: action_handle_feedback
+
+  - story: extract number and display order details
+    steps:
+      - intent: mobile_number
+      - action: action_order_details
+
+  - story: retrieve previous orders
+    steps:
+      - intent: my_previous_Orders
+      - action: action_ask_mobile_number
+      - intent: mobile_number
+      - slot_was_set:
+          - mobileNo: "123456789"
+      - action: action_order_details
+      - action: utter_ask_more_help
+
+  - story: retrieve flight booking history
+    steps:
+      - intent: flight_booking_history
+      - action: action_ask_mobile_number  # Reuse the same slot
+      - intent: mobile_number
+      - slot_was_set:
+          - mobileNo: "123456789"  # Reuse the value or prompt for it again
+      - action: action_flight_booking_history
+      - action: utter_ask_more_help
+
+  - story: retrieve_previous_service_order_history
+    steps:
+      - intent: service_booking_history
+      - action: action_ask_mobile_number  # Reuse the same slot
+      - intent: mobile_number
+      - slot_was_set:
+          - mobileNo: "123456789"  # Reuse the value or prompt for it again
+      - action: action_service_booking_history
+      - action: utter_ask_more_help
+
+  - story: download invoice
+    steps:
+      - intent: download_invoice
+      - action: utter_pdf_link
+
+  - story: track my home service status
+    steps:
+      - intent: track_service_status
+      - action: track_service_form
+      - active_loop: track_service_form
+      - slot_was_set:
+          - booking_number: "SERVICE123"  # Placeholder for user's input
+      - active_loop: null
+      - action: action_service_status
+      - action: action_deactivate_form
+      - slot_was_set:
+          - booking_number: null
+      - action: utter_ask_more_help
+

@@ -1,0 +1,261 @@
+version: "3.1"
+intents:
+  - add_rating
+  - affirm
+  - bot_challenge
+  - choose_option
+  - comment_review
+  - deny
+  - feedback
+  - goodbye
+  - greet
+  - inform
+  - mobile_number
+  - mood_great
+  - mood_unhappy
+  - my_previous_Orders
+  - ord_item_ref
+  - ord_number
+  - orders_enquiry
+  - review_product
+  - track_my_order
+  - airlines_enquiry
+  - track_flight_status
+  - flight_booking_history
+  - daily_services
+  - service_booking_history
+  - track_service_status
+  - promotions_coupons
+  - download_invoice
+  - provide_name
+entities:
+  - mobileNo
+  - order_item_reference
+  - rating
+  - review_comment
+  - order_number
+  - name
+  - feedback
+  - pnr
+  - booking_number
+
+slots:
+  order_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: order_number
+  booking_number:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: booking_number
+  name:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_text
+        # not_intent: ["greet"]
+  mobileNo:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: mobileNo
+  order_item_reference:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: order_item_reference
+  rating:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: rating
+  review_comment:
+    type: text
+    mappings:
+      - type: from_entity
+        entity: review_comment
+  feedback:
+    type: text
+    influence_conversation: true
+    mappings:
+      - type: from_entity
+        entity: feedback
+  pnr:
+    type: text
+    influence_conversation: false
+    mappings:
+      - type: from_entity
+        entity: pnr
+responses:
+  utter_services_flow:
+    - text: Choose Below
+      buttons:
+        - title: Service Status
+          payload: /track_service_status
+        - title: Service Booking history
+          payload: /service_booking_history
+        - title: Service Cancellation
+          payload: /cancel_service
+        - title: Main Menu
+          payload: /affirm
+        - title: Exit
+          payload: /deny
+  utter_flight_flow:
+    - text: Choose Below
+      buttons:
+        - title: Flight Status
+          payload: /track_flight_status
+        - title: Flight Booking history
+          payload: /flight_booking_history
+        - title: Flight Cancellation
+          payload: /flight_cancellation
+        - title: List all flights
+          payload: /reviewProduct
+        - title: Main Menu
+          payload: /affirm
+        - title: Exit
+          payload: /deny
+  utter_order_flow:
+    - text: Choose Below
+      buttons:
+        - title: Track my order
+          payload: Track my order
+        - title: Return Order
+          payload: Return Order
+        - title: Promotions & Coupons
+          payload: Promotions & Coupons
+        - title: Review a product
+          payload: Review a product
+        - title: Previous Orders
+          payload: Previous Orders
+        - title: Main Menu
+          payload: /affirm
+        - title: Exit
+          payload: /deny
+  utter_greet:
+    - text: Hello {name}, What can I do for you today?
+  utter_ask_mobile_number:
+    - text: Please enter your mobile number to retrieve your previous orders.
+  utter_happy_to_help:
+    - text: Happy to help. See you soon
+  utter_order_status:
+    - text: shipped
+  utter_promotions_coupons:
+    - text: "Don't miss this deal!"
+      image: "https://static1.bigstockphoto.com/8/2/1/large2/128754626.jpg"
+  utter_ask_name:
+    - text: Hello, Welcome to the LivEzy services. I am Lizzy, Could you please tell me your name?
+  utter_help:
+    - text: How can I assist you today, {name}?
+  utter_ask_option:
+    - text: Choose the option you would like me to help you with
+      buttons:
+        - title: Orders
+          payload: /orders_enquiry
+        - title: Flight Information
+          payload: /airlines_enquiry
+        - title: Home Services
+          payload: /daily_services
+        - title: FAQs
+          payload: /reviewProduct
+        - title: Invoice Download
+          payload: /download_invoice
+        - title: Exit
+          payload: /deny
+  utter_ask_order_number:
+    - text: Please provide your order number.
+  utter_ask_tracking_number:
+    - text: Please provide your tracking number.
+  utter_ask_booking_number:
+    - text: Please provide your booking number.
+  utter_cheer_up:
+    - text: "Here is something to cheer you up:"
+      image: https://i.imgur.com/nGF1K8f.jpg
+  utter_did_that_help:
+    - text: Did that help you?
+  utter_happy:
+    - text: Great, carry on!
+  utter_goodbye:
+    - text: Bye
+  utter_iamabot:
+    - text: I am a bot, powered by Rasa.
+  utter_ask_order_item_reference:
+    - text: Please provide your order item reference number.
+  utter_ask_rating:
+    - text: Thank you. Now, please provide a rating for the product (1-5).
+  utter_ask_review_comment:
+    - text: Great! Finally, please provide your review for the product.
+  utter_ask_pnr:
+    - text: "Please provide your PNR to track your flight."
+  utter_pdf_link:
+    - text: "Here is the Invoice you requested:"
+      custom:
+        link: "https://tan-norina-10.tiiny.site/"
+  utter_ask_more_help:
+    - text: Thank you for contacting. Is there anything else apart from this we may help you with?
+      buttons:
+        - title: Yes
+          payload: /affirm
+        - title: No
+          payload: /deny
+  utter_feedback:
+    - text: |
+        Please feel free to reach out to us for any further queries. Thank you for choosing LivEzy.
+        Rate your communication with me.
+      buttons:
+        - title: Bad
+          payload: /feedback{"feedback":"bad"}
+        - title: Good
+          payload: /feedback{"feedback":"good"}
+        - title: Best
+          payload: /feedback{"feedback":"best"}
+        - title: Excellent
+          payload: /feedback{"feedback":"excellent"}
+
+actions:
+  - action_ask_mobile_number
+  - action_order_details
+  - utter_order_flow
+  - action_order_status
+  - validate_track_order_form
+  - action_submit_review
+  - action_deactivate_form
+  - action_ask_further_assistance
+  - action_happy_to_help
+  - action_save_name
+  - action_ask_name
+  - action_handle_feedback
+  - utter_ask_more_help
+  - action_flight_status
+  - action_flight_booking_history
+  - action_service_booking_history
+  - action_service_status
+  - ask_name_form
+  - action_promotions_coupons
+  - action_download_invoice
+forms:
+  track_order_form:
+    required_slots:
+      - order_number
+  review_form:
+    required_slots:
+      - order_item_reference
+      - rating
+      - review_comment
+  ask_name_form:
+    required_slots:
+      - name
+  track_flight_form:
+    required_slots:
+      - pnr
+  track_service_form:
+    required_slots:
+      - booking_number
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

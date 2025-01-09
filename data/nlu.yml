@@ -1,0 +1,296 @@
+version: "3.1"
+nlu:
+  - intent: inform
+    examples: |
+      - my name is [John](name)
+      - I am [Jane](name)
+      - you can call me [Mike](name)
+      - it's [Sarah](name)
+      - I'm [Alex](name)
+      - call me [Chris](name)
+      - my name's [Taylor Swift](name)
+      - I go by [Sam](name)
+      - people call me [Jordan](name)
+      - it's [Pat](name)
+      - my name is [Casey](name)
+      - the name's [Morgan](name)
+      - just call me [Riley](name)
+      - I'm [Quinn](name)
+      - they call me [Veceres](name)
+      - my name is [Xander](name)
+      - you can call me [Jessie](name)
+      - it's [Jamie](name)
+      - call me [Casey](name)
+      - the name's [Frank](name)
+      - I go by [Nina](name)
+      - people call me [Winston](name)
+      - my name is [Ava](name)
+      - I'm [Oliver](name)
+      - call me [Sophia](name)
+      - just call me [Liam](name)
+      - the name's [Amelia](name)
+      - [ramair](name)
+      - [kassie](name)
+      - [baidya](name)
+      - [nave](name)
+      - [krishna](name)
+      - [Sanyam](name)
+      
+  - intent: greet
+    examples: |
+      - hey
+      - hello
+      - hi
+      - hello there
+      - good morning
+      - good evening
+      - moin
+      - hey there
+      - let's go
+      - hey dude
+      - goodmorning
+      - goodevening
+      - good afternoon
+  - intent: track_my_order
+    examples: |
+      - Track my order
+      - Where is my order?
+      - I want to check the status of my order
+      - Order tracking
+      - Can you help me track my order?
+      - I'd like to know where my order is
+      - Check my order status
+      - Can you provide the tracking details of my order?
+  - intent: track_service_status
+    examples: |
+      - track my service request.
+      - where is my maid?
+      - I want to know the status of my service man
+      - can you help me track my service guy.
+      - check my service status.
+      - service status
+  - intent: track_flight_status
+    examples: |
+      - Track flight status
+      - flight status
+      - booking status
+      - check flight status.
+  - intent: my_previous_Orders
+    examples: |
+      - order history
+      - my old orders
+      - Previous orders
+  - intent: choose_option
+    examples: |
+      - I want to know about [orders](option)
+      - Tell me about [flight information](option)
+      - I need help with [home services](option)
+      - Show me [FAQs](option)
+      - Can you assist me with [orders](option)?
+  - intent: orders_enquiry
+    examples: |
+      - orders
+      - order
+      - order queries.
+  - intent: airlines_enquiry
+    examples: |
+      - airlines queries.
+      - airlines.
+      - flight Info.
+      - Flight Information
+  - intent: daily_services
+    examples: |
+      - Home Services.
+      - daily services.
+      - service enquiry.
+      - service booking.
+  - intent: ord_number
+    examples: |
+      - [1NLJRDREY](order_number)
+      - sure, [1NLJRDREY](order_number)
+      - my number is [Q5JQAXHBHQ](order_number)
+      - [LYAM3E8BWM](order_number)
+      - [4OB49ES03C](order_number)
+      - [SMTCI2CHFE](order_number)
+  - intent: booking_number
+    examples: |
+      - [LI3368-070524](booking_number)
+      - [LI3390-080524](booking_number)
+      - [LI3496-150524](booking_number)
+      - [LI4960-170624](booking_number)
+      - [YC3110-240424](booking_number)
+  - intent: pnr
+    examples: |
+      - [CA/WCUJPE](pnr)
+      - [FD/WC5BFE](pnr)
+      - [CX/WCFQI2](pnr)
+      - [MH/WCEC7V](pnr)
+      - [KE/WCGAPO](pnr)
+      - [FD/WCLGOH](pnr)
+      - [WCZRXM](pnr)
+  - intent: comment_review
+    examples: |
+      - [Nice](review_comment)
+      - [Nice product](review_comment)
+      - [Nice One](review_comment)
+      - It's [great](review_comment)
+      - I think it's [excellent](review_comment)
+  - intent: ord_item_ref
+    examples: |
+      - [ORD1707242989](order_item_reference)
+      - sure, [ORD1707242885](order_item_reference)
+      - my number is [ORD1707242210](order_item_reference)
+      - [ORD1387872330](order_item_reference)
+      - [ORD1707242345](order_item_reference)
+  - intent: mobile_number
+    examples: |
+      - [123456890](mobileNo)
+      - [234567890](mobileNo)
+      - [509250901](mobileNo)
+      - [409250901](mobileNo)
+      - [309250923](mobileNo)
+    #  - my number is [859082111](mobileNo)
+    #  - sure, [933839393](mobileNo)
+    #  - this my number[897876598](mobileNo)
+    #  - It is [911237890](mobileNo)
+    #  - yes, [245252890](mobileNo)
+    #  - why not [123456789](mobileNo)
+    #  - my number is [509250901](mobileNo)
+  - intent: add_rating
+    examples: |
+      - [1](rating)
+      - [2](rating)
+      - [3](rating)
+      - [4](rating)
+      - [5](rating)
+    # - my rating is [3](rating)
+    # - My rating for this product is [5](rating)
+    #  - I would like to rate it [4](rating)
+    #   - I give it a [3](rating)
+  #    - I'll rate you [2](rating)
+  #     - rating is [1](rating)
+  #      - i would rate it [3](rating)
+  #  - it's worth [4](rating)
+  #  - i would'nt rate it beyond [4](rating)
+  - intent: review_product
+    examples: |
+      - I want to review a product
+      - I have a product review
+      - I would like to give feedback on a product
+      - Let me review an item
+      - I have a review for an order
+  - intent: goodbye
+    examples: |
+      - cu
+      - good by
+      - cee you later
+      - good night
+      - bye
+      - goodbye
+      - have a nice day
+      - see you around
+      - bye bye
+      - see you later
+  - intent: affirm
+    examples: |
+      - yes
+      - y
+      - indeed
+      - of course
+      - that sounds good
+      - correct
+  - intent: deny
+    examples: |
+      - no
+      - n
+      - never
+      - I don't think so
+      - don't like that
+      - no way
+      - not really
+  - intent: mood_great
+    examples: |
+      - perfect
+      - great
+      - amazing
+      - feeling like a king
+      - wonderful
+      - I am feeling very good
+      - I am great
+      - I am amazing
+      - I am going to save the world
+      - super stoked
+      - extremely good
+      - so so perfect
+      - so good
+      - so perfect
+  - intent: mood_unhappy
+    examples: |
+      - my day was horrible
+      - I am sad
+      - I don't feel very well
+      - I am disappointed
+      - super sad
+      - I'm so sad
+      - sad
+      - very sad
+      - unhappy
+      - not good
+      - not very good
+      - extremly sad
+      - so saad
+      - so sad
+  - intent: bot_challenge
+    examples: |
+      - are you a bot?
+      - are you a human?
+      - am I talking to a bot?
+      - am I talking to a human?
+  - intent: promotions_coupons
+    examples: |
+      - I want to see promotions and coupons
+      - Show me current deals
+      - Coupons available?
+      - promotions coupons
+  - intent: feedback
+    examples: |
+      - bad
+      - good
+      - best
+      - excellent
+      - It was bad
+      - I had a good experience
+      - The service was excellent
+      - The communication was best
+  - intent: flight_booking_history
+    examples: |
+      - flight booking history
+      - show my old flight bookings
+      - old flights booked
+  - intent: service_booking_history
+    examples: |
+      - service booking history
+      - show my old service bookings
+      - old services booked
+      - previous services.
+  - intent: download_invoice
+    examples: |
+      - I want to download my invoice
+      - Can I get my invoice?
+      - Please provide my invoice
+      - Download invoice
+  - regex: name
+    examples: |
+      - [A-Za-z]+
+  - regex: mobileNo
+    examples: |
+      - \d{9}
+  - regex: rating
+    examples: |
+      - \d{1}
+  - regex: pnr
+    examples: |
+      - ^[A-Z0-9]{6,9}$
+  # - regex: name
+  # - examples: |
+  #   pattern: "[A-Za-z][a-z]+(?: [A-Za-z][a-z]+)*"

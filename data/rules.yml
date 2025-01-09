@@ -1,0 +1,27 @@
+version: "3.1"
+
+rules:
+  - rule: Say goodbye anytime the user says goodbye
+    steps:
+      - intent: goodbye
+      - action: utter_goodbye
+
+  - rule: Say 'I am a bot' anytime the user challenges
+    steps:
+      - intent: bot_challenge
+      - action: utter_iamabot
+
+  - rule: Ask for help options if user affirms more help
+    steps:
+      - intent: affirm
+      - action: utter_ask_option
+
+  - rule: Show promotions and coupons
+    steps:
+      - intent: promotions_coupons
+      - action: action_promotions_coupons
+
+  - rule: give order status
+    steps:
+      - intent: ord_number
+      - action: action_order_status

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "mobileNo",
+    "pattern": "\\d{9}"
+  },
+  {
+    "name": "name",
+    "pattern": "[A-Za-z]+"
+  },
+  {
+    "name": "order_item_reference",
+    "pattern": "^ORD\\d{7,}$"
+  },
+  {
+    "name": "pnr",
+    "pattern": "^[A-Z0-9]{6,9}$"
+  },
+  {
+    "name": "rating",
+    "pattern": "\\d{1}"
+  }
+]

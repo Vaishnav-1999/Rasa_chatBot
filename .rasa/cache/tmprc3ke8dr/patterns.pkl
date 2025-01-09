@@ -1,0 +1,18 @@
+[
+  {
+    "name": "mobileNo",
+    "pattern": "\\d{9}"
+  },
+  {
+    "name": "name",
+    "pattern": "[A-Za-z]+"
+  },
+  {
+    "name": "pnr",
+    "pattern": "^[A-Z0-9]{6,9}$"
+  },
+  {
+    "name": "rating",
+    "pattern": "\\d{1}"
+  }
+]

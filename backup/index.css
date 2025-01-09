@@ -1,0 +1,107 @@
+        /* Add styles for chat icon and chat window */
+        .chat-icon {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            text-align: center;
+            line-height: 60px;
+            cursor: pointer;
+            font-size: 30px;
+        }
+        .chat-window {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            width: 300px;
+            height: 450px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            display: none;
+            background: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-header {
+            background: #C6FFFF;
+            color: Black;
+            padding: 6px;
+            border-radius: 10px 10px 0 0;
+        }
+        .chat-body {
+            padding: 10px;
+            overflow-y: auto;
+            height: 300px;
+        }
+        .chat-footer {
+            padding: 10px;
+            border-top: 1px solid #ccc;
+        }
+        .chat-footer input {
+            width: 107%;
+            padding: 8px;
+            margin-left:-3.5%;
+        }
+        .chat-footer button {
+            width: 18%;
+            padding: 5px;
+            background: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+		.jmr-logo {
+		    width: 50px; /* Adjust the size as needed */
+		    height: 50px; /* Adjust the size as needed */
+		    border-radius: 50%;
+		    margin-right: 10px; /* Space between the image and text */
+		    object-fit: scale-down; /* Ensures the image covers the entire area */
+		}
+		p {
+		    position: absolute;
+		    top: 5%;
+		    left: 22%;
+		    color:#707B7C;
+		    right: 0;
+		    margin: 0; /* Remove default margin */
+		    font-size:larger;
+		    font-weight: bold;
+		    text-shadow:0.5px 0.5px grey;
+		}
+		.container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #000; /* Optional: For visual reference */
+    padding: 10px;
+}
+
+.refresh-button,
+.minimize-button {
+    margin-left: 10px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.refresh-button {
+    background-color: #4CAF50; /* Green */
+    color: white;
+}
+
+.minimize-button {
+    background-color: #f44336; /* Red */
+    color: white;
+}
+.chat-textbox {
+    width: 100%;
+    height: 100%;
+    background-color:#F2F3F4;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    border: none; /* Optional: remove default input border */
+    padding: 10px; /* Optional: add padding inside the textbox */
+    font-size: 16px; /* Optional: adjust font size */
+}

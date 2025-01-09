@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Rasa Core Visualisation</title>
+    <script src="https://dagrejs.github.io/project/dagre-d3/latest/dagre-d3.min.js"></script>
+    <script src="https://dagrejs.github.io/project/dagre/latest/dagre.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="https://dagrejs.github.io/project/graphlib-dot/v0.6.3/graphlib-dot.js"></script>
+</head>
+<body>
+<div id="errormsg" style="color: #b00"></div>
+<svg>
+    <style id="graph-style">
+        .node.invisible > rect {
+            display: none;
+        }
+
+        .node.start > rect {
+            fill: #7f7;
+            rx: 30;
+            ry: 18;
+        }
+
+        .node.end > rect {
+            fill: #f77;
+            rx: 30;
+            ry: 18;
+        }
+
+        .node:not(.active) > rect, .node:not(.active) > .label {
+            opacity: 0.4;
+        }
+
+        .edgePath:not(.active) path {
+            opacity: 0.4;
+        }
+
+        .node.ellipsis > rect {
+            fill: #CCC;
+        }
+
+        .node.intent > rect {
+            fill: #7ff;
+        }
+
+        .node.dashed > rect {
+            stroke-dasharray: 5;
+        }
+
+        text {
+            font-weight: 300;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serf, serif;
+            font-size: 14px;
+            color: #1f1d1d;
+        }
+
+        .node rect {
+            stroke: #444;
+            fill: #fff;
+            stroke-width: 1.5px;
+        }
+
+        .edgePath path {
+            stroke: #333;
+            stroke-width: 1.5px;
+        }
+
+        svg {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            height: 100%;
+            width: 100%
+        }
+    </style>
+    <g></g>
+</svg>
+<script>
+
+  function serveGraph() {
+    let oldInputGraphValue;
+
+    const url = 'visualization.dot';
+    const refreshInterval = 500;
+
+    // trigger a refresh by fetching an updated graph
+    setInterval(function () {
+      fetch(url).then(r => r.text()).then(dot => {
+        document.getElementById('errormsg').innerHTML = '';
+        if (oldInputGraphValue === dot) return;
+
+        oldInputGraphValue = dot;
+        drawGraph(dot);
+      }).catch(err => {
+        document.getElementById('errormsg').innerHTML =
+          'Failed to update plot. (' + err.message + ')';
+      });
+    }, refreshInterval);
+  }
+
+  function drawGraph(graph) {
+    let g = graphlibDot.read(graph);
+    // Set margins, if not present
+    if (!g.graph().hasOwnProperty("marginx") &&
+      !g.graph().hasOwnProperty("marginy")) {
+      g.graph().marginx = 20;
+      g.graph().marginy = 20;
+    }
+    g.graph().transition = function (selection) {
+      return selection.transition().duration(300);
+    };
+    // Render the graph into svg g
+    d3.select("svg g").call(render, g);
+  }
+  // Set up zoom support
+  const svg = d3.select("svg"),
+    inner = d3.select("svg g"),
+    zoom = d3.zoom().on("zoom", function () {
+      inner.attr("transform", d3.event.transform);
+    });
+  svg.call(zoom);
+
+  // Create and configure the renderer
+  const render = dagreD3.render();
+
+  let isClient = false;
+  isClient = true;
+
+  if (isClient) {
+    // Mark all nodes and their edges as active
+    cssRules = document.getElementById('graph-style').sheet.cssRules;
+    cssRules[3].style.opacity = 1;
+    cssRules[4].style.opacity = 1;
+
+    let graph;
+    graph = `digraph  {
+0 [class="start active", fillcolor=green, fontsize=12, label=START, style=filled];
+"-1" [class=end, fillcolor=red, fontsize=12, label=END, style=filled];
+1 [class="", fontsize=12, label=utter_services_flow];
+2 [class="", fontsize=12, label=review_form];
+3 [class="", fontsize=12, label=action_submit_review];
+4 [class="", fontsize=12, label=utter_ask_more_help];
+5 [class="", fontsize=12, label=action_ask_name];
+6 [class="", fontsize=12, label=action_save_name];
+7 [class="", fontsize=12, label=utter_ask_option];
+8 [class="", fontsize=12, label=utter_feedback];
+9 [class="", fontsize=12, label=action_handle_feedback];
+10 [class="", fontsize=12, label=action_order_details];
+11 [class="", fontsize=12, label=action_ask_mobile_number];
+12 [class="", fontsize=12, label=action_order_details];
+14 [class="", fontsize=12, label=action_ask_mobile_number];
+15 [class="", fontsize=12, label=action_flight_booking_history];
+17 [class="", fontsize=12, label=action_ask_mobile_number];
+18 [class="", fontsize=12, label=action_service_booking_history];
+20 [class="", fontsize=12, label=track_service_form];
+21 [class="", fontsize=12, label=action_service_status];
+22 [class="", fontsize=12, label=action_deactivate_form];
+24 [class="", fontsize=12, label=track_order_form];
+25 [class="", fontsize=12, label=action_order_status];
+28 [class="", fontsize=12, label=track_flight_form];
+29 [class="", fontsize=12, label=action_flight_status];
+32 [class="", fontsize=12, label=utter_order_flow];
+33 [class="", fontsize=12, label=utter_flight_flow];
+34 [class="", fontsize=12, label="..."];
+35 [class="", fontsize=12, label=utter_goodbye];
+37 [class="", fontsize=12, label=utter_iamabot];
+41 [class="", fontsize=12, label=action_promotions_coupons];
+43 [class="", fontsize=12, label=action_order_status];
+44 [class=intent, fillcolor=lightblue, label="service booking.", shape=rect, style=filled];
+45 [class=intent, fillcolor=lightblue, label="I want to review a product", shape=rect, style=filled];
+46 [class=intent, fillcolor=lightblue, label=moin, shape=rect, style=filled];
+47 [class=intent, fillcolor=lightblue, label="no way", shape=rect, style=filled];
+48 [class=intent, fillcolor=lightblue, label=123456890, shape=rect, style=filled];
+49 [class=intent, fillcolor=lightblue, label="my old orders", shape=rect, style=filled];
+50 [class=intent, fillcolor=lightblue, label="old flights booked", shape=rect, style=filled];
+51 [class=intent, fillcolor=lightblue, label="service booking history", shape=rect, style=filled];
+52 [class=intent, fillcolor=lightblue, label="where is my maid?", shape=rect, style=filled];
+53 [class=intent, fillcolor=lightblue, label="I'd like to know where my order is", shape=rect, style=filled];
+54 [class=intent, fillcolor=lightblue, label="flight status", shape=rect, style=filled];
+55 [class=intent, fillcolor=lightblue, label=order, shape=rect, style=filled];
+56 [class=intent, fillcolor=lightblue, label="Flight Information", shape=rect, style=filled];
+57 [class=intent, fillcolor=lightblue, label="call me Chris", shape=rect, style=filled];
+58 [class=intent, fillcolor=lightblue, label=best, shape=rect, style=filled];
+59 [class=intent, fillcolor=lightblue, label=509250901, shape=rect, style=filled];
+60 [class=intent, fillcolor=lightblue, label=509250901, shape=rect, style=filled];
+61 [class=intent, fillcolor=lightblue, label=509250901, shape=rect, style=filled];
+62 [class=intent, fillcolor=lightblue, label=bye, shape=rect, style=filled];
+63 [class=intent, fillcolor=lightblue, label="are you a human?", shape=rect, style=filled];
+64 [class=intent, fillcolor=lightblue, label="that sounds good", shape=rect, style=filled];
+65 [class=intent, fillcolor=lightblue, label="promotions coupons", shape=rect, style=filled];
+66 [class=intent, fillcolor=lightblue, label=LYAM3E8BWM, shape=rect, style=filled];
+0 -> 34  [class="", key=NONE, label=""];
+0 -> 44  [class="", key=0];
+0 -> 45  [class="", key=0];
+0 -> 46  [class="", key=0];
+0 -> 47  [class="", key=0];
+0 -> 48  [class="", key=0];
+0 -> 49  [class="", key=0];
+0 -> 50  [class="", key=0];
+0 -> 51  [class="", key=0];
+0 -> 52  [class="", key=0];
+0 -> 53  [class="", key=0];
+0 -> 54  [class="", key=0];
+0 -> 55  [class="", key=0];
+0 -> 56  [class="", key=0];
+1 -> "-1"  [class="", key=NONE, label=""];
+2 -> 3  [class="", key=NONE, label=""];
+3 -> 4  [class="", key=NONE, label=""];
+4 -> "-1"  [class="", key=NONE, label=""];
+5 -> 57  [class="", key=0];
+6 -> 7  [class="", key=NONE, label=""];
+7 -> "-1"  [class="", key=NONE, label=""];
+8 -> 58  [class="", key=0];
+9 -> "-1"  [class="", key=NONE, label=""];
+10 -> "-1"  [class="", key=NONE, label=""];
+11 -> 59  [class="", key=0];
+12 -> 4  [class="", key=NONE, label=""];
+14 -> 60  [class="", key=0];
+15 -> 4  [class="", key=NONE, label=""];
+17 -> 61  [class="", key=0];
+18 -> 4  [class="", key=NONE, label=""];
+20 -> 21  [class="", key=NONE, label=""];
+21 -> 22  [class="", key=NONE, label=""];
+22 -> 4  [class="", key=NONE, label=""];
+24 -> 25  [class="", key=NONE, label=""];
+25 -> 22  [class="", key=NONE, label=""];
+28 -> 29  [class="", key=NONE, label=""];
+29 -> 22  [class="", key=NONE, label=""];
+32 -> "-1"  [class="", key=NONE, label=""];
+33 -> "-1"  [class="", key=NONE, label=""];
+34 -> 62  [class="", key=0];
+34 -> 63  [class="", key=0];
+34 -> 64  [class="", key=0];
+34 -> 65  [class="", key=0];
+34 -> 66  [class="", key=0];
+35 -> "-1"  [class="", key=NONE, label=""];
+37 -> "-1"  [class="", key=NONE, label=""];
+41 -> "-1"  [class="", key=NONE, label=""];
+43 -> "-1"  [class="", key=NONE, label=""];
+44 -> 1  [class="", key=0];
+45 -> 2  [class="", key=0];
+46 -> 5  [class="", key=0];
+47 -> 8  [class="", key=0];
+48 -> 10  [class="", key=0];
+49 -> 11  [class="", key=0];
+50 -> 14  [class="", key=0];
+51 -> 17  [class="", key=0];
+52 -> 20  [class="", key=0];
+53 -> 24  [class="", key=0];
+54 -> 28  [class="", key=0];
+55 -> 32  [class="", key=0];
+56 -> 33  [class="", key=0];
+57 -> 6  [class="", key=0];
+58 -> 9  [class="", key=0];
+59 -> 12  [class="", key=0];
+60 -> 15  [class="", key=0];
+61 -> 18  [class="", key=0];
+62 -> 35  [class="", key=0];
+63 -> 37  [class="", key=0];
+64 -> 7  [class="", key=0];
+65 -> 41  [class="", key=0];
+66 -> 43  [class="", key=0];
+}
+`;
+    drawGraph(graph);
+  } else {
+    serveGraph();
+  }
+
+
+</script>
+</body>
+</html>
